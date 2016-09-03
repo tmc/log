@@ -10,7 +10,7 @@
 Package log wraps logrus to include source line/function information
 
 
-
+Inspired by prometheus common/log
 
 ## <a name="pkg-index">Index</a>
 * [func Debug(args ...interface{})](#Debug)
