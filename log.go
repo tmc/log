@@ -9,7 +9,7 @@ import (
 	"github.com/Sirupsen/logrus"
 )
 
-// Level describes the log severity level
+// Level describes the log severity level.
 type Level uint8
 
 const (
@@ -31,9 +31,7 @@ const (
 	DebugLevel
 )
 
-// TODO(tmc): remove the formatting methods to encourage use of leveled logging in lieu of format strings.
-
-// Logger is an interface that describes logging
+// Logger is an interface that describes logging.
 type Logger interface {
 	SetLevel(level Level)
 	SetOut(out io.Writer)
@@ -66,7 +64,6 @@ func (l logger) With(key string, value interface{}) Logger {
 }
 
 func (l logger) WithError(err error) Logger {
-	// TODO(tmc): emit structured error into something useful
 	return logger{l.entry.WithError(err)}
 }
 
@@ -148,7 +145,7 @@ func (l logger) sourced() *logrus.Entry {
 var origLogger = logrus.New()
 var baseLogger = logger{entry: logrus.NewEntry(origLogger)}
 
-// New returns a new logger
+// New returns a new logger.
 func New() Logger {
 	return logger{entry: logrus.NewEntry(origLogger)}
 }
