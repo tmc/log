@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 // Level describes the log severity level.
@@ -59,18 +59,22 @@ type logger struct {
 	entry *logrus.Entry
 }
 
+// With attaches a key-value pair to a logger.
 func (l logger) With(key string, value interface{}) Logger {
 	return logger{l.entry.WithField(key, value)}
 }
 
+// WithError attaches an error to a logger.
 func (l logger) WithError(err error) Logger {
 	return logger{l.entry.WithError(err)}
 }
 
+// SetLevel sets the level of a logger.
 func (l logger) SetLevel(level Level) {
-	l.entry.Level = logrus.Level(level)
+	l.entry.Logger.Level = logrus.Level(level)
 }
 
+// SetOut sets the output destination for a logger.
 func (l logger) SetOut(out io.Writer) {
 	l.entry.Logger.Out = out
 }
@@ -157,7 +161,12 @@ func Base() Logger {
 
 // SetLevel sets the Level of the base logger
 func SetLevel(level Level) {
-	baseLogger.entry.Level = logrus.Level(level)
+	baseLogger.entry.Logger.Level = logrus.Level(level)
+}
+
+// SetOut sets the output destination base logger
+func SetOut(out io.Writer) {
+	baseLogger.entry.Logger.Out = out
 }
 
 // With attaches a key,value pair to a logger.
